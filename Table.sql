@@ -1,0 +1,46 @@
+CREATE TABLE Lieu(
+    IdL NUMBER (5),
+    NomL VARCHAR2(20),
+    IdLPere NUMBER(5),
+    CONSTRAINT PK_Lieu PRIMARY KEY(IdL),
+    CONSTRAINT FK_Lieu FOREIGN KEY(IdLPere) REFERENCES Lieu(Idl));
+
+CREATE TABLE Station(
+    IdS NUMBER(20),
+    IdL NUMBER(5),
+    Tel VARCHAR2(10),
+    Latitude VARCHAR2(30),
+    Longitude VARCHAR2(30),
+
+    CONSTRAINT PK_Station PRIMARY KEY(IdS),
+    CONSTRAINT FK_Station FOREIGN KEY(IdL) REFERENCES Lieu(IdL));
+
+CREATE TABLE Releve(
+    IdR NUMBER(5),
+    DateRel DATE,
+    IdS NUMBER(20),
+
+    CONSTRAINT PK_Releve PRIMARY KEY(IdR),
+    CONSTRAINT FK_Releve FOREIGN KEY(IdS) REFERENCES Station(IdS));
+
+CREATE TABLE Mesure(
+    IdM NUMBER(5),
+    NomM VARCHAR2(20),
+    Mesure VARCHAR2(20),
+    IdR NUMBER(5),
+
+    CONSTRAINT PK_Mesure PRIMARY KEY(IdM),
+    CONSTRAINT FK_Mesure FOREIGN KEY(IdR) REFERENCES Releve(IdR));
+
+CREATE TABLE Alerte(
+    IdA NUMBER(5),
+    Categorie VARCHAR2(20),
+    IdL NUMBER(5),
+    DateDeb DATE,
+    DateFin DATE,
+    Niveau NUMBER(1),
+
+    CONSTRAINT PK_Alerte PRIMARY KEY(IdA),
+    CONSTRAINT FK_Alerte FOREIGN KEY(IdL) REFERENCES Lieu(IdL));
+    
+
